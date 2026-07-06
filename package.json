@@ -1,0 +1,15 @@
+{
+  "name": "eda-playground-pro",
+  "version": "1.0.0",
+  "description": "Full Stack EDA Playground Clone with React, Node.js and Custom Waveform Viewer",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "npm install && npm install --prefix server && npm install --prefix client --legacy-peer-deps",
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

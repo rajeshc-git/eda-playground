@@ -1,0 +1,954 @@
+/*
+ * client/src/styles.css - Premium Glassmorphic Styling for React App
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Color Palette - Premium HSL tailored colors (Dark Mode Default) */
+  --bg-main: hsl(222, 47%, 6%);
+  --bg-card: hsla(217, 33%, 12%, 0.7);
+  --bg-header: hsla(220, 40%, 8%, 0.85);
+  --bg-sidebar: hsla(222, 35%, 8%, 0.8);
+  --border-glow: hsla(217, 30%, 20%, 0.5);
+  --border-active: hsla(250, 84%, 60%, 0.4);
+  
+  --color-primary: hsl(250, 84%, 67%);      /* Neon Indigo */
+  --color-primary-glow: hsla(250, 84%, 67%, 0.35);
+  --color-secondary: hsl(190, 90%, 50%);    /* Cyan */
+  --color-success: hsl(145, 80%, 50%);      /* Emerald Green */
+  --color-danger: hsl(350, 80%, 55%);       /* Crimson Red */
+  --color-warning: hsl(45, 90%, 55%);       /* Amber Yellow */
+  --color-text-main: hsl(210, 40%, 96%);
+  --color-text-muted: hsl(215, 20%, 65%);
+  --color-text-darker: hsl(215, 15%, 45%);
+  
+  /* Fonts */
+  --font-sans: 'Outfit', sans-serif;
+  --font-mono: 'Fira Code', monospace;
+  
+  /* Dimensions & Spacing */
+  --header-height: 60px;
+  --sidebar-width: 320px;
+  
+  /* Glassmorphism */
+  --glass-blur: blur(12px);
+  --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7),
+                 inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+body.light-theme {
+  /* Color Palette - Stark Black & White Light Mode */
+  --bg-main: #ffffff;
+  --bg-card: #ffffff;
+  --bg-header: #ffffff;
+  --bg-sidebar: #fafafa;
+  --border-glow: #e5e7eb;
+  --border-active: #000000;
+  
+  --color-primary: #000000;      /* Stark Black */
+  --color-primary-glow: rgba(0, 0, 0, 0.05);
+  --color-secondary: #000000;
+  --color-success: #059669;      /* Forest Green */
+  --color-danger: #dc2626;       /* Deep Red */
+  --color-warning: #d97706;      /* Amber Yellow */
+  --color-text-main: #111827;    /* Charcoal Text */
+  --color-text-muted: #4b5563;   /* Muted Slate Text */
+  --color-text-darker: #1f2937;  /* High Contrast Titles */
+  
+  /* Pure Minimalist Theme Shadows */
+  --glass-blur: none;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, #root {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  background-image: 
+    radial-gradient(at 10% 15%, hsla(250, 80%, 50%, 0.1) 0px, transparent 50%),
+    radial-gradient(at 90% 85%, hsla(190, 80%, 40%, 0.08) 0px, transparent 50%);
+  color: var(--color-text-main);
+  height: var(--vh, 100vh);
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.02);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* Header */
+header {
+  height: var(--header-height);
+  background-color: var(--bg-header);
+  backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--border-glow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 10;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--bg-main);
+  box-shadow: 0 0 15px var(--color-primary-glow);
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  background: linear-gradient(to right, #fff, var(--color-text-muted));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo-text span {
+  color: var(--color-secondary);
+  -webkit-text-fill-color: initial;
+}
+
+/* Light Mode Logo Overrides */
+body.light-theme .logo-icon {
+  background: #000000;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+body.light-theme .logo-text {
+  background: linear-gradient(to right, #000, var(--color-text-muted));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.light-theme .logo-text span {
+  color: #000000;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+button {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary));
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 0 12px var(--color-primary-glow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 20px hsla(250, 84%, 67%, 0.6);
+  filter: brightness(1.1);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: var(--border-glow);
+  color: var(--color-text-main);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-text-muted);
+}
+
+/* App Layout Grid */
+.app-container {
+  display: flex;
+  flex: 1;
+  height: calc(var(--vh, 100vh) - var(--header-height));
+  overflow: hidden;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: var(--sidebar-width);
+  background-color: var(--bg-sidebar);
+  border-right: 1px solid var(--border-glow);
+  backdrop-filter: var(--glass-blur);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 20px;
+  gap: 24px;
+}
+
+.sidebar-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar-section h3 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-text-darker);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Form Controls */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+select, input[type="text"], input[type="number"] {
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-glow);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--color-text-main);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+select:focus, input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 8px var(--color-primary-glow);
+}
+
+/* Light Mode Input Overrides */
+body.light-theme select, body.light-theme input[type="text"], body.light-theme input[type="number"] {
+  background-color: #ffffff;
+  border: 1px solid var(--border-active);
+  color: var(--color-text-main);
+}
+
+body.light-theme select:focus, body.light-theme input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+}
+
+/* Examples Select List */
+.examples-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.example-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.example-item:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: var(--border-glow);
+}
+
+.example-item.active {
+  background-color: hsla(250, 84%, 67%, 0.1);
+  border-color: var(--border-active);
+  color: var(--color-primary);
+}
+
+/* Light Mode Preset List Overrides */
+body.light-theme .example-item {
+  background-color: #ffffff;
+  border: 1px solid var(--border-glow);
+}
+
+body.light-theme .example-item:hover {
+  background-color: #f9fafb;
+  border-color: #000000;
+}
+
+body.light-theme .example-item.active {
+  background-color: #000000;
+  border-color: #000000;
+  color: #ffffff;
+}
+
+.example-item i {
+  font-size: 12px;
+}
+
+/* Main IDE Panels */
+.main-ide-panels {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Vertical / Horizontal Splitters */
+.splitter {
+  background-color: var(--border-glow);
+  position: relative;
+  z-index: 5;
+  transition: background-color 0.15s;
+}
+
+.splitter:hover, .splitter.active {
+  background-color: var(--color-primary);
+}
+
+.splitter-horizontal {
+  height: 4px;
+  cursor: row-resize;
+  width: 100%;
+}
+
+.splitter-vertical {
+  width: 4px;
+  cursor: col-resize;
+  height: 100%;
+}
+
+/* Split Pane Containers */
+.pane-top {
+  display: flex;
+  flex-direction: row;
+  height: 60%; /* initial JS controlled */
+  width: 100%;
+  overflow: hidden;
+}
+
+.pane-bottom {
+  flex: 1;
+  width: 100%;
+  background-color: var(--bg-card);
+  backdrop-filter: var(--glass-blur);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Code Editor Container */
+.editor-pane {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.editor-pane-header {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid var(--border-glow);
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 42px;
+}
+
+.editor-pane-title {
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-muted);
+}
+
+.editor-badge {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* Light Mode Editor Header Overrides */
+body.light-theme .editor-pane-header {
+  background-color: #f9fafb;
+}
+body.light-theme .editor-pane-title {
+  color: var(--color-text-main);
+}
+body.light-theme .editor-badge {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--color-text-muted);
+}
+
+.editor-pane-title i {
+  color: var(--color-secondary);
+}
+
+.editor-container {
+  flex: 1;
+  width: 100%;
+  background-color: #1e1e1e;
+}
+
+/* Bottom Tabbed Area */
+.tabs-header {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid var(--border-glow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 42px;
+  padding: 0 16px;
+}
+
+.tabs-list {
+  display: flex;
+  gap: 4px;
+  height: 100%;
+  align-items: flex-end;
+}
+
+.tab-button {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--color-text-muted);
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 0;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  height: 38px;
+}
+
+.tab-button:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+  color: var(--color-text-main);
+}
+
+.tab-button.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.tab-content {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+}
+
+.tab-pane {
+  display: none;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.tab-pane.active {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Log / Console Output */
+#log-pane {
+  background-color: rgba(0, 0, 0, 0.95);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 16px;
+  overflow-y: auto;
+  color: #d1d5db;
+  flex: 1;
+}
+
+/* Light Mode Console Log Overrides */
+body.light-theme #log-pane {
+  background-color: #fafafa;
+  border: 1px solid var(--border-glow);
+  color: #111827;
+}
+
+.log-line {
+  margin-bottom: 4px;
+  white-space: pre-wrap;
+}
+
+.log-line.log-info {
+  color: var(--color-text-muted);
+}
+
+.log-line.log-success {
+  color: var(--color-success);
+  font-weight: 500;
+}
+
+.log-line.log-warning {
+  color: var(--color-warning);
+}
+
+.log-line.log-error {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+/* Waveform Viewer Panel */
+.waveform-toolbar {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid var(--border-glow);
+  padding: 6px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 40px;
+}
+
+.waveform-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.waveform-controls label {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.waveform-controls select {
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+.waveform-controls-group {
+  display: flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border-glow);
+}
+
+.waveform-controls-group button {
+  border-radius: 0;
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.waveform-container-wrapper {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  background-color: var(--bg-main);
+  position: relative;
+}
+
+/* Signal List sidebar inside waveform viewer */
+.waveform-signals-sidebar {
+  width: 200px;
+  border-right: 1px solid var(--border-glow);
+  background-color: var(--bg-sidebar);
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+.waveform-signals-header {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--color-text-darker);
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-glow);
+}
+
+.waveform-signal-item {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--border-glow);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+.waveform-signal-item:hover {
+  background-color: var(--color-primary-glow);
+  color: var(--color-text-main);
+}
+
+.waveform-signal-item.active {
+  background-color: var(--color-primary-glow);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Scrollable Waveform Canvas */
+.waveform-canvas-container {
+  flex: 1;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+}
+
+#waveform-canvas {
+  display: block;
+  background-color: #0b0f19;
+  cursor: crosshair;
+}
+
+/* Tooltip */
+.waveform-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background-color: rgba(9, 13, 22, 0.95);
+  border: 1px solid var(--color-secondary);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--color-text-main);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  display: none;
+}
+
+/* Share modal styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-content {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-glow);
+  border-radius: 12px;
+  padding: 30px;
+  width: 480px;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transform: scale(0.9);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-overlay.active .modal-content {
+  transform: scale(1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.modal-close:hover {
+  color: var(--color-text-main);
+}
+
+.share-url-container {
+  display: flex;
+  gap: 8px;
+}
+
+.share-url-container input {
+  flex: 1;
+}
+
+/* Status overlays */
+.empty-waveform-msg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--color-text-darker);
+  gap: 12px;
+}
+
+.empty-waveform-msg i {
+  font-size: 40px;
+}
+
+.empty-waveform-msg span {
+  font-size: 14px;
+}
+
+.status-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.status-ready {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: var(--color-success);
+}
+
+.status-compiling {
+  background-color: rgba(99, 102, 241, 0.15);
+  color: var(--color-primary);
+  animation: pulse 1.5s infinite;
+}
+
+.status-error {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: var(--color-danger);
+}
+
+/* Mobile Tabs Bar - Hidden on Desktop */
+.mobile-tabs-bar {
+  display: none;
+  background-color: var(--bg-sidebar);
+  border-bottom: 1px solid var(--border-glow);
+  height: 48px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  /* Show Mobile Tabs Bar */
+  .mobile-tabs-bar {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    padding: 0 4px;
+    z-index: 20;
+  }
+  
+  .mobile-tabs-bar button {
+    flex: 1;
+    border-radius: 0;
+    border: none;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    color: var(--color-text-muted);
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 4px 0;
+  }
+  
+  .mobile-tabs-bar button.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+    background-color: var(--color-primary-glow);
+  }
+  
+  /* Layout modifications for Mobile */
+  .app-container {
+    flex-direction: column !important;
+    height: calc(var(--vh, 100vh) - var(--header-height) - 48px) !important;
+  }
+  
+  /* Hide Sidebar and panes by default */
+  .sidebar {
+    display: none !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  .sidebar.mobile-active {
+    display: flex !important;
+  }
+  
+  .pane-top {
+    display: none !important;
+    height: 100% !important;
+    width: 100% !important;
+    flex-direction: column !important;
+  }
+  
+  .pane-top.mobile-active {
+    display: flex !important;
+  }
+  
+  .editor-pane {
+    display: none !important;
+    width: 100% !important;
+    height: 50% !important;
+  }
+  
+  .editor-pane.mobile-active {
+    display: flex !important;
+  }
+
+  .editor-pane.editor-focused {
+    height: 100% !important;
+    display: flex !important;
+  }
+
+  .editor-pane.editor-hidden {
+    display: none !important;
+  }
+  
+  .pane-bottom {
+    display: none !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  .pane-bottom.mobile-active {
+    display: flex !important;
+  }
+  
+  .splitter {
+    display: none !important;
+  }
+  
+  /* Adjust header layout for mobile */
+  header {
+    padding: 0 12px !important;
+  }
+  
+  .logo-text {
+    font-size: 16px !important;
+  }
+  
+  .logo-text span {
+    display: none;
+  }
+  
+  .header-actions {
+    gap: 6px !important;
+  }
+  
+  .header-actions button {
+    padding: 6px 10px !important;
+    font-size: 12px !important;
+    justify-content: center;
+    gap: 0 !important;
+  }
+
+  .header-actions button .btn-text {
+    display: none;
+  }
+  
+  /* EPWave Canvas sidebar on mobile: stack list on top of canvas or make list toggleable */
+  .waveform-container-wrapper {
+    flex-direction: column !important;
+  }
+  
+  .waveform-signals-sidebar {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 150px !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-glow) !important;
+  }
+
+  .tabs-list.show-only-log-pane .tab-wave-btn {
+    display: none !important;
+  }
+  
+  .tabs-list.show-only-waveform-pane .tab-log-btn {
+    display: none !important;
+  }
+}
